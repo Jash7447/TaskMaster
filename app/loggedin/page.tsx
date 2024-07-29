@@ -4,6 +4,7 @@ import Tasks from "@/components/taskmaster/tasks";
 import UserProfile from "@/components/nav/user-profile";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import TodoList from "@/components/todos/todo-list";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
         <MobileNav/>
         <main className="flex flex-1 flex-col gap-4 p-4 lg:px-8">
           <h1>Taskmaster</h1>
+          <TodoList/>
         </main>
       </div>
     </div>
