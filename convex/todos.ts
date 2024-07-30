@@ -1,4 +1,5 @@
-import { query } from "./_generated/server";
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
 
 export const get = query({
   args: {},
@@ -40,3 +41,20 @@ export const totalTodos = query({
         return todos.length || 0;
     },
 });
+
+
+export const checkATodo = mutation({
+    args: { taskId: v.id("todos") },
+    handler: async (ctx, { taskId }) => {
+      const newTaskId = await ctx.db.patch(taskId, { isCompleted: true });
+      return newTaskId;
+    },
+  });
+  
+  export const unCheckATodo = mutation({
+    args: { taskId: v.id("todos") },
+    handler: async (ctx, { taskId }) => {
+      const newTaskId = await ctx.db.patch(taskId, { isCompleted: false });
+      return newTaskId;
+    },
+  });
