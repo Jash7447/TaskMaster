@@ -1,81 +1,78 @@
-import Link from "next/link"
-import {
-  Bell,
-  Calendar,
-  CalendarDays,
-  CircleUser,
-  Grid2X2,
-  Home,
-  icons,
-  Inbox,
-  LineChart,
-  Menu,
-  Package,
-  Package2,
-  Search,
-  ShoppingCart,
-  Users,
-} from "lucide-react"
+import { Doc } from "@/convex/_generated/dataModel";
+import clsx from "clsx";
+import AddTaskDialog from "../add-tasks/add-task-dialog";
+import { Checkbox } from "../ui/checkbox";
+import { Dialog, DialogTrigger } from "../ui/dialog";
+import { Calendar, GitBranch, Tag } from "lucide-react";
+import moment from "moment";
 
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import UserProfile from "./user-profile"
-import { primaryNavItems } from "@/utils"
+function isSubTodo(
+  data: Doc<"todos"> | Doc<"subTodos">
+): data is Doc<"subTodos"> {
+  return "parentId" in data;
+}
 
-export function SideBar() {
+export default function Task({
+  data,
+  isCompleted,
+  handleOnChange,
+  showDetails = false,
+}: {
+  data: Doc<"todos"> | Doc<"subTodos">;
+  isCompleted: boolean;
+  handleOnChange: any;
+  showDetails?: boolean;
+}) {
+  const { taskName, dueDate } = data;
+
   return (
-      <div className="hidden border-r bg-muted/40 md:block">
-        <div className="flex h-full max-h-screen flex-col gap-2">
-          <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-            <UserProfile/>
+    <div
+      key={data._id}
+      className="flex items-center space-x-2 border-b-2 p-2 border-gray-100 animate-in fade-in"
+    >
+      <Dialog>
+        <div className="flex gap-2 items-center justify-end w-full">
+          <div className="flex gap-2 w-full">
+            <Checkbox
+              id="todo"
+              className={clsx(
+                "w-5 h-5 rounded-xl",
+                isCompleted &&
+                  "data-[state=checked]:bg-gray-300 border-gray-300"
+              )}
+              checked={isCompleted}
+              onCheckedChange={handleOnChange}
+            />
+            <DialogTrigger asChild>
+              <div className="flex flex-col items-start">
+                <button
+                  className={clsx(
+                    "text-sm font-normal text-left",
+                    isCompleted && "line-through text-foreground/30"
+                  )}
+                >
+                  {taskName}
+                </button>
+                {showDetails && (
+                  <div className="flex gap-2">
+                    <div className="flex items-center justify-center gap-1">
+                      <GitBranch className="w-3 h-3 text-foreground/70" />
+                      <p className="text-xs text-foreground/70"></p>
+                    </div>
+                    <div className="flex items-center justify-center gap-1">
+                      <Calendar className="w-3 h-3 text-primary" />
+                      <p className="text-xs text-primary">
+                        {moment(dueDate).format("LL")}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </DialogTrigger>
           </div>
-          <div className="flex-1">
-            <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-              {primaryNavItems.map(({name, icon, link}, idx) => (
-                <Link
-                key={idx}
-                    href={link}
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary">
-                    {icon}
-                        {name}
-                </Link>
-              ))}
-
-            </nav>
-          </div>
-          <div className="mt-auto p-4">
-            <Card x-chunk="dashboard-02-chunk-0">
-              <CardHeader className="p-2 pt-0 md:p-4">
-                <CardTitle>Upgrade to Pro</CardTitle>
-                <CardDescription>
-                  Unlock all features and get unlimited access to our support
-                  team.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                <Button size="sm" className="w-full">
-                  Upgrade
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+          {!isSubTodo(data) && <AddTaskDialog data={data} />}
         </div>
-      </div>
-  )
+      </Dialog>
+    </div>
+  );
 }
