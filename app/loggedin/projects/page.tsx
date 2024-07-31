@@ -1,7 +1,7 @@
 
 import ProjectList from "@/components/containers/projects";
 import MobileNav from "@/components/nav/mobile-nav";
-import { SideBar } from "@/components/nav/side-bar";
+import SideBar from "@/components/nav/side-bar";
 
 export default function Projects() {
   return (

@@ -2,7 +2,7 @@
 import { AddTaskWrapper } from "@/components/add-tasks/add-task-button";
 import SuggestMissingTasks from "@/components/add-tasks/suggest-tasks";
 import MobileNav from "@/components/nav/mobile-nav";
-import { SideBar } from "@/components/nav/side-bar";
+import SideBar from "@/components/nav/side-bar";
 import DeleteProject from "@/components/projects/delete-project";
 import CompletedTodos from "@/components/todos/completed-todos";
 import Todos from "@/components/todos/todos";

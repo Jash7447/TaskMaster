@@ -1,78 +1,142 @@
-import { Doc } from "@/convex/_generated/dataModel";
-import clsx from "clsx";
-import AddTaskDialog from "../add-tasks/add-task-dialog";
-import { Checkbox } from "../ui/checkbox";
-import { Dialog, DialogTrigger } from "../ui/dialog";
-import { Calendar, GitBranch, Tag } from "lucide-react";
-import moment from "moment";
+"use client";
+import Link from "next/link";
 
-function isSubTodo(
-  data: Doc<"todos"> | Doc<"subTodos">
-): data is Doc<"subTodos"> {
-  return "parentId" in data;
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { primaryNavItems } from "@/utils";
+import UserProfile from "./user-profile";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { api } from "@/convex/_generated/api";
+import { useQuery } from "convex/react";
+import { useEffect, useState } from "react";
+import { Hash, PlusIcon } from "lucide-react";
+import { Doc } from "@/convex/_generated/dataModel";
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+// import AddProjectDialog from "../projects/add-project-dialog";
+// import AddLabelDialog from "../labels/add-label-dialog";
+
+interface MyListTitleType {
+  [key: string]: string;
 }
 
-export default function Task({
-  data,
-  isCompleted,
-  handleOnChange,
-  showDetails = false,
-}: {
-  data: Doc<"todos"> | Doc<"subTodos">;
-  isCompleted: boolean;
-  handleOnChange: any;
-  showDetails?: boolean;
-}) {
-  const { taskName, dueDate } = data;
+export default function SideBar() {
+  const pathname = usePathname();
+
+  const projectList = useQuery(api.projects.getProjects);
+
+  const LIST_OF_TITLE_IDS: MyListTitleType = {
+    primary: "",
+    projects: "My Projects",
+  };
+
+  const [navItems, setNavItems] = useState([...primaryNavItems]);
+
+  const renderItems = (projectList: Array<Doc<"projects">>) => {
+    return projectList.map(({ _id, name }, idx) => {
+      return {
+        ...(idx === 0 && { id: "projects" }),
+        name,
+        link: `/loggedin/projects/${_id.toString()}`,
+        icon: <Hash className="w-4 h-4" />,
+      };
+    });
+  };
+  useEffect(() => {
+    if (projectList) {
+      const projectItems = renderItems(projectList);
+      const items = [...primaryNavItems, ...projectItems];
+      setNavItems(items);
+    }
+  }, [projectList]);
 
   return (
-    <div
-      key={data._id}
-      className="flex items-center space-x-2 border-b-2 p-2 border-gray-100 animate-in fade-in"
-    >
-      <Dialog>
-        <div className="flex gap-2 items-center justify-end w-full">
-          <div className="flex gap-2 w-full">
-            <Checkbox
-              id="todo"
-              className={clsx(
-                "w-5 h-5 rounded-xl",
-                isCompleted &&
-                  "data-[state=checked]:bg-gray-300 border-gray-300"
-              )}
-              checked={isCompleted}
-              onCheckedChange={handleOnChange}
-            />
-            <DialogTrigger asChild>
-              <div className="flex flex-col items-start">
-                <button
-                  className={clsx(
-                    "text-sm font-normal text-left",
-                    isCompleted && "line-through text-foreground/30"
+    <div className="hidden border-r bg-muted/40 md:block">
+      <div className="flex h-full max-h-screen flex-col gap-2">
+        <div className="flex justify-between h-14 items-center border-b p-1 lg:h-[60px] lg:px-2">
+          <UserProfile />
+        </div>
+        <nav className="grid items-start px-1 text-sm font-medium lg:px-4">
+          {navItems.map(({ name, icon, link, id }, idx) => (
+            <div key={idx}>
+              {id && (
+                <div
+                  className={cn(
+                    "flex items-center mt-6 mb-2",
+                    id === "filters" && "my-0"
                   )}
                 >
-                  {taskName}
-                </button>
-                {showDetails && (
-                  <div className="flex gap-2">
-                    <div className="flex items-center justify-center gap-1">
-                      <GitBranch className="w-3 h-3 text-foreground/70" />
-                      <p className="text-xs text-foreground/70"></p>
+                  <p className="flex flex-1 text-base">
+                    {LIST_OF_TITLE_IDS[id]}
+                  </p>
+                  {/* {LIST_OF_TITLE_IDS[id] === "My Projects" && (
+                    <AddProjectDialog />
+                  )} */}
+                </div>
+              )}
+              <div className={cn("flex items-center lg:w-full")}>
+                <div
+                  className={cn(
+                    "flex items-center text-left lg:gap-3 rounded-lg py-2 transition-all hover:text-primary justify-between w-full",
+                    pathname === link
+                      ? "active rounded-lg bg-primary/10 text-primary transition-all hover:text-primary"
+                      : "text-foreground "
+                  )}
+                >
+                  <Link
+                    key={idx}
+                    href={link}
+                    className={cn(
+                      "flex items-center text-left gap-3 rounded-lg transition-all hover:text-primary w-full"
+                    )}
+                  >
+                    <div className="flex gap-4 items-center w-full">
+                      <div className="flex gap-2 items-center">
+                        <p className="flex text-base text-left">
+                          {icon || <Hash />}
+                        </p>
+                        <p>{name}</p>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-center gap-1">
-                      <Calendar className="w-3 h-3 text-primary" />
-                      <p className="text-xs text-primary">
-                        {moment(dueDate).format("LL")}
-                      </p>
-                    </div>
-                  </div>
-                )}
+                  </Link>
+                  {id === "filters" && (
+                    <Dialog>
+                      <DialogTrigger id="closeDialog">
+                        <PlusIcon
+                          className="h-5 w-5"
+                          aria-label="Add a Label"
+                        />
+                      </DialogTrigger>
+                      {/* <AddLabelDialog /> */}
+                    </Dialog>
+                  )}
+                </div>
               </div>
-            </DialogTrigger>
-          </div>
-          {!isSubTodo(data) && <AddTaskDialog data={data} />}
-        </div>
-      </Dialog>
+            </div>
+          ))}
+        </nav>
+      </div>
+      <div className="mt-auto p-4">
+        <Card x-chunk="dashboard-02-chunk-0">
+          <CardHeader className="p-2 pt-0 md:p-4">
+            <CardTitle>Upgrade to Pro</CardTitle>
+            <CardDescription>
+              Unlock all features and get unlimited access to our support team.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+            <Button size="sm" className="w-full">
+              Upgrade
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

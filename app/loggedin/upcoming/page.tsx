@@ -1,7 +1,7 @@
 import Today from "@/components/containers/today";
 import Upcoming from "@/components/containers/upcoming";
 import MobileNav from "@/components/nav/mobile-nav";
-import { SideBar } from "@/components/nav/side-bar";
+import SideBar from "@/components/nav/side-bar";
 
 export default function Home() {
   return (

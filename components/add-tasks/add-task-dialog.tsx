@@ -15,9 +15,9 @@ import { api } from "@/convex/_generated/api";
 import { useEffect, useState } from "react";
 import Task from "../todos/task";
 import { AddTaskWrapper } from "./add-task-button";
-import SuggestMissingTasks from "./suggest-tasks";
 import { deleteATodo } from "@/convex/todos";
 import { useToast } from "../ui/use-toast";
+import SuggestMissingTasks from "./suggest-tasks";
 
 export default function AddTaskDialog({ data }: { data: Doc<"todos"> }) {
   const { taskName, description, projectId, labelId, priority, dueDate, _id } =
