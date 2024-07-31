@@ -7,7 +7,7 @@ import { Checkbox } from "../ui/checkbox";
 export default function TodoList() {
     const todos = useQuery(api.todos.get) ?? [];
     const completedTodos = useQuery(api.todos.completedTodos) ?? [];
-    const incompletedTodos = useQuery(api.todos.incompletedTodos) ?? [];
+    const incompletedTodos = useQuery(api.todos.inCompleteTodos) ?? [];
     const totalTodos = useQuery(api.todos.totalTodos) ?? 0;
 
     if (todos === undefined || completedTodos === undefined || incompletedTodos === undefined) {

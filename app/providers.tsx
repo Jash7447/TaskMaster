@@ -1,6 +1,6 @@
 "use client";
 
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { ConvexProviderWithAuth, ConvexReactClient } from "convex/react";
 import { Session } from "next-auth";
 import { SessionProvider, useSession } from "next-auth/react";
 import { ReactNode, useMemo } from "react";
@@ -42,7 +42,10 @@ export default function Providers({
  }) {
   return (
       <SessionProvider session={session}>
-       <ConvexProvider client={convex}>{children}</ConvexProvider>
+       <ConvexProviderWithAuth client=
+        {convex} useAuth={useAuth}>
+          {children}
+        </ConvexProviderWithAuth>
        </SessionProvider>
   );
 }
