@@ -3,7 +3,7 @@ import { query, mutation, action } from "./_generated/server";
 import { v } from "convex/values";
 import { handleUserId } from "./auth";
 import moment from "moment";
-// import { getEmbeddingsWithAI } from "./openai";
+import { getEmbeddingsWithAI } from "./openai";
 import { api } from "./_generated/api";
 
 export const get = query({
@@ -237,31 +237,31 @@ export const createATodo = mutation({
   },
 });
 
-// export const createTodoAndEmbeddings = action({
-//   args: {
-//     taskName: v.string(),
-//     description: v.optional(v.string()),
-//     priority: v.number(),
-//     dueDate: v.number(),
-//     projectId: v.id("projects"),
-//     labelId: v.id("labels"),
-//   },
-//   handler: async (
-//     ctx,
-//     { taskName, description, priority, dueDate, projectId, labelId }
-//   ) => {
-//     const embedding = await getEmbeddingsWithAI(taskName);
-//     await ctx.runMutation(api.todos.createATodo, {
-//       taskName,
-//       description,
-//       priority,
-//       dueDate,
-//       projectId,
-//       labelId,
-//       embedding,
-//     });
-//   },
-// });
+export const createTodoAndEmbeddings = action({
+  args: {
+    taskName: v.string(),
+    description: v.optional(v.string()),
+    priority: v.number(),
+    dueDate: v.number(),
+    projectId: v.id("projects"),
+    labelId: v.id("labels"),
+  },
+  handler: async (
+    ctx,
+    { taskName, description, priority, dueDate, projectId, labelId }
+  ) => {
+    const embedding = await getEmbeddingsWithAI(taskName);
+    await ctx.runMutation(api.todos.createATodo, {
+      taskName,
+      description,
+      priority,
+      dueDate,
+      projectId,
+      labelId,
+      embedding,
+    });
+  },
+});
 
 export const groupTodosByDate = query({
   args: {},

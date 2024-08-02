@@ -1,13 +1,26 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Noto_Sans_Georgian } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ["latin"] });
+const defaultFont = Noto_Sans_Georgian({ subsets: ["latin"] });
+
+const ORIGIN_URL =
+  process.env.NODE === "production"
+    ? "https://todovex.ai"
+    : "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "TaskMaster",
-  description: "A task management app",
+  title: "Todovex.ai",
+  description:
+    "TodoVex seamlessly organizes your tasks and predicts what's next using AI.",
+  icons: {
+    icon: "/icon.ico",
+  },
+  metadataBase: new URL(ORIGIN_URL),
+  alternates: {
+    canonical: ORIGIN_URL,
+  },
 };
 
 export default function RootLayout({
@@ -17,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={defaultFont.className}>
         {children}
         <Toaster />
       </body>
