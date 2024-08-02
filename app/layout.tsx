@@ -7,13 +7,13 @@ const defaultFont = Noto_Sans_Georgian({ subsets: ["latin"] });
 
 const ORIGIN_URL =
   process.env.NODE === "production"
-    ? "https://todovex.ai"
+    ? "https://taskmaster.ai"
     : "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "Todovex.ai",
+  title: "Taskmaster.ai",
   description:
-    "TodoVex seamlessly organizes your tasks and predicts what's next using AI.",
+    "TaskMaster seamlessly organizes your tasks and predicts what's next using AI.",
   icons: {
     icon: "/icon.ico",
   },

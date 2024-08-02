@@ -95,25 +95,25 @@ export const deleteProjectAndItsTasks = action({
     projectId: v.id("projects"),
   },
   handler: async (ctx, { projectId }) => {
-    // try {
-    //   const allTasks = await ctx.runQuery(api.todos.getTodosByProjectId, {
-    //     projectId,
-    //   });
+    try {
+      const allTasks = await ctx.runQuery(api.todos.getTodosByProjectId, {
+        projectId,
+      });
 
-    //   const promises = Promise.allSettled(
-    //     allTasks.map(async (task: Doc<"todos">) =>
-    //       ctx.runMutation(api.todos.deleteATodo, {
-    //         taskId: task._id,
-    //       })
-    //     )
-    //   );
-    //   const statuses = await promises;
+      const promises = Promise.allSettled(
+        allTasks.map(async (task: Doc<"todos">) =>
+          ctx.runMutation(api.todos.deleteATodo, {
+            taskId: task._id,
+          })
+        )
+      );
+      const statuses = await promises;
 
-    //   await ctx.runMutation(api.projects.deleteProject, {
-    //     projectId,
-    //   });
-    // } catch (err) {
-    //   console.error("Error deleting tasks and projects", err);
-    // }
+      await ctx.runMutation(api.projects.deleteProject, {
+        projectId,
+      });
+    } catch (err) {
+      console.error("Error deleting tasks and projects", err);
+    }
   },
 });

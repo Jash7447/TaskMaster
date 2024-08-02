@@ -128,7 +128,7 @@ export default function LoginForm() {
             <a
               className="group"
               aria-label="Twitter"
-              href="https://twitter.com/kulkarniankita9"
+              href="https://x.com/jash7447"
             >
               <svg
                 aria-hidden="true"
@@ -140,7 +140,7 @@ export default function LoginForm() {
             <a
               className="group"
               aria-label="GitHub"
-              href="https://github.com/kulkarniankita/todoist-clone"
+              href="https://github.com/Jash7447/TaskMaster"
             >
               <svg
                 aria-hidden="true"
@@ -152,7 +152,7 @@ export default function LoginForm() {
             <a
               className="group"
               aria-label="GitHub"
-              href="https://github.com/kulkarniankita/todoist-clone"
+              href="https://github.com/Jash7447/TaskMaster"
             >
               <svg
                 viewBox="0 0 256 180"

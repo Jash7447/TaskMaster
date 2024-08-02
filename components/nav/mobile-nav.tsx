@@ -12,10 +12,10 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { primaryNavItems } from "@/utils";
 import Image from "next/image";
-// import SearchForm from "./search-form";
+import SearchForm from "./search-form";
 import UserProfile from "./user-profile";
 
-// import todovexLogo from "@/public/logo/todovex.svg";
+import taskmasterLogo from "@/public/logo/taskmaster.svg";
 
 export default function MobileNav({
   navTitle = "",
@@ -79,11 +79,11 @@ export default function MobileNav({
           </Link>
         </div>
         <div className="place-content-center w-full flex-1">
-          {/* <SearchForm /> */}
+          <SearchForm />
         </div>
-        {/* <div className="place-content-center w-12 h-12 lg:w-16 lg:h-20">
-          <Image alt="logo" src={todovexLogo} />
-        </div> */}
+        <div className="place-content-center w-12 h-12 lg:w-16 lg:h-20">
+          <Image alt="logo" src={taskmasterLogo} />
+        </div>
       </div>
     </header>
   );
