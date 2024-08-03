@@ -13,7 +13,6 @@ export default function Home() {
       <div className="flex flex-col">
         <MobileNav/>
         <main className="flex flex-1 flex-col gap-4 p-4 lg:px-8">
-          <h1>Taskmaster</h1>
           <TodoList/>
         </main>
       </div>

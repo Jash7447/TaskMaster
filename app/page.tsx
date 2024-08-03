@@ -14,11 +14,11 @@ export default function LoginForm() {
     <main className="bg-gradient-to-r from-purple-200 to-orange-200 h-full min-h-screen">
       <div className="container relative m-0 mx-auto py-10 md:px-10">
         <div className="max-width flex items-center justify-center lg:justify-between">
-          <Link className="flex items-center gap-1" href="/loggedin">
+          <Link className=" p-1 m-1 flex items-center gap-1" href="/loggedin">
             <Image
               src={taskmaster}
-              width="50"
-              height="50"
+              width="40"
+              height="40"
               alt="logo"
               className="h-16 w-20 md:h-16 md:w-20"
             />

@@ -54,7 +54,7 @@ export const suggestMissingItemsWithAi = action({
     //create the todos
     if (messageContent) {
       const items = JSON.parse(messageContent)?.todos ?? [];
-      const AI_LABEL_ID = "k57exc6xrw3ar5e1nmab4vnbjs6v1m4p";
+      const AI_LABEL_ID = "k570y83s13mnc2r3whpgt4nzzh6y4fgw";
 
       for (let i = 0; i < items.length; i++) {
         const { taskName, description } = items[i];
@@ -122,7 +122,7 @@ export const suggestMissingSubItemsWithAi = action({
     //create the todos
     if (messageContent) {
       const items = JSON.parse(messageContent)?.todos ?? [];
-      const AI_LABEL_ID = "k57exc6xrw3ar5e1nmab4vnbjs6v1m4p";
+      const AI_LABEL_ID = "k570y83s13mnc2r3whpgt4nzzh6y4fgw";
 
       for (let i = 0; i < items.length; i++) {
         const { taskName, description } = items[i];
