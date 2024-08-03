@@ -93,24 +93,50 @@ export const getTodosTotalByProjectId = query({
   },
 });
 
+// export const todayTodos = query({
+//   args: {},
+//   handler: async (ctx) => {
+//     const userId = await handleUserId(ctx);
+
+//     if (userId) {
+//       const todayStart = moment().startOf("day");
+//       const todayEnd = moment().endOf("day");
+
+//       return await ctx.db
+//         .query("todos")
+//         .filter((q) => q.eq(q.field("userId"), userId))
+//         .filter(
+//           (q) =>
+//             q.gte(q.field("dueDate"), todayStart.valueOf()) &&
+//             q.lte(todayEnd.valueOf(), q.field("dueDate"))
+//         )
+//         .collect();
+//     }
+//     return [];
+//   },
+// });
+
 export const todayTodos = query({
   args: {},
   handler: async (ctx) => {
     const userId = await handleUserId(ctx);
 
     if (userId) {
-      const todayStart = moment().startOf("day");
-      const todayEnd = moment().endOf("day");
+      const todayStart = moment().startOf("day").valueOf();
+      const todayEnd = moment().endOf("day").valueOf();
 
-      return await ctx.db
+      console.log("Today's Start:", todayStart);
+      console.log("Today's End:", todayEnd);
+
+      const todos = await ctx.db
         .query("todos")
         .filter((q) => q.eq(q.field("userId"), userId))
-        .filter(
-          (q) =>
-            q.gte(q.field("dueDate"), todayStart.valueOf()) &&
-            q.lte(todayEnd.valueOf(), q.field("dueDate"))
-        )
+        .filter((q) => q.gte(q.field("dueDate"), todayStart))
+        .filter((q) => q.lte(q.field("dueDate"), todayEnd))
         .collect();
+
+      console.log("Todos found:", todos);
+      return todos;
     }
     return [];
   },
