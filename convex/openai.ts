@@ -146,7 +146,8 @@ export const getEmbeddingsWithAI = async (searchText: string) => {
   if (!apiKey) {
     throw new Error("Open AI Key is not defined");
   }
-
+  //print a debug
+  console.log(`Getting Embedding for ${searchText}`);
   const req = {
     input: searchText,
     model: "text-embedding-ada-002",

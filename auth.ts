@@ -1,5 +1,5 @@
-import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 import { ConvexAdapter } from "./app/ConvexAdapter";
 import { importPKCS8, SignJWT } from "jose";
 
@@ -22,12 +22,12 @@ const CONVEX_SITE_URL = process.env.NEXT_PUBLIC_CONVEX_URL!.replace(
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
-    //google
+    //google oauth
     GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        authorization: {params: {prompt: "consent"}},
-    })
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: { params: { prompt: "consent" } },
+    }),
   ],
   adapter: ConvexAdapter,
   callbacks: {
@@ -51,3 +51,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
 });
+
+declare module "next-auth" {
+  interface Session {
+    convexToken: string;
+  }
+}
