@@ -122,7 +122,7 @@ export default function SideBar() {
           ))}
         </nav>
       </div>
-      <div className="mt-auto p-4">
+      {/* <div className="mt-auto p-4">
         <Card x-chunk="dashboard-02-chunk-0">
           <CardHeader className="p-2 pt-0 md:p-4">
             <CardTitle>Upgrade to Pro</CardTitle>
@@ -136,7 +136,7 @@ export default function SideBar() {
             </Button>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -52,7 +52,7 @@ export default function MobileNav({
               <p className="flex flex-1 text-base">My Projects</p>
             </div>
           </nav>
-          <div className="mt-auto">
+          {/* <div className="mt-auto">
             <Card>
               <CardHeader>
                 <CardTitle>Upgrade to Pro</CardTitle>
@@ -67,7 +67,7 @@ export default function MobileNav({
                 </Button>
               </CardContent>
             </Card>
-          </div>
+          </div> */}
         </SheetContent>
       </Sheet>
       <div className="flex items-center md:justify-between w-full gap-1 md:gap-2 py-2">

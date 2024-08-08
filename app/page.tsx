@@ -86,15 +86,15 @@ export default function LoginForm() {
       </div>
       <div className="">
         <div className="flex items-center justify-center">
-          <Image
+          {/* <Image
             alt="mobile"
             loading="lazy"
             width="500"
             height="600"
             className="z-10 max-w-[400px]"
             src={"/mobile.png"}
-          />
-          <Image
+          /> */}
+          {/* <Image
             src="/desktop.png"
             alt="laptop"
             loading="lazy"
@@ -102,11 +102,11 @@ export default function LoginForm() {
             height="500"
             data-nimg="1"
             className="h-full -ml-28 mt-10 hidden lg:flex"
-          />
+          /> */}
         </div>
       </div>
       <div className="flex items-center justify-center">
-        <footer className="bottom-0 container mx-auto my-5 flex flex-col items-center justify-between space-y-3 border-t space-x-4 px-3 pt-4 text-center sm:flex-row sm:pt-2 md:text-lg">
+        {/* <footer className="bottom-0 container mx-auto my-5 flex flex-col items-center justify-between space-y-3 border-t space-x-4 px-3 pt-4 text-center sm:flex-row sm:pt-2 md:text-lg">
           <div>
             Powered by{" "}
             <a
@@ -151,7 +151,7 @@ export default function LoginForm() {
               </svg>
             </a>
           </div>
-        </footer>
+        </footer> */}
       </div>
     </main>
   );
