@@ -1,9 +1,5 @@
 import MobileNav from "@/components/nav/mobile-nav";
 import SideBar from "@/components/nav/side-bar";
-import Tasks from "@/components/taskmaster/tasks";
-import UserProfile from "@/components/nav/user-profile";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import TodoList from "@/components/todos/todo-list";
 
 export default function Home() {

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description:
     "TaskMaster seamlessly organizes your tasks and predicts what's next using AI.",
   icons: {
-    icon: "/icon.ico",
+    icon: "/favicon.ico",
   },
   metadataBase: new URL(ORIGIN_URL),
   alternates: {

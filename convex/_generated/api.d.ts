@@ -16,7 +16,7 @@ import type {
 } from "convex/server";
 import type * as auth from "../auth.js";
 import type * as authAdapter from "../authAdapter.js";
-import type * as https from "../https.js";
+import type * as http from "../http.js";
 import type * as labels from "../labels.js";
 import type * as openai from "../openai.js";
 import type * as projects from "../projects.js";
@@ -35,7 +35,7 @@ import type * as todos from "../todos.js";
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   authAdapter: typeof authAdapter;
-  https: typeof https;
+  http: typeof http;
   labels: typeof labels;
   openai: typeof openai;
   projects: typeof projects;
